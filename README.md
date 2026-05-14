@@ -1,27 +1,57 @@
 # pharma-sales
 
-## Context
+## executive summary
 
-better Health Pharmacy is a chain of pharmacies operating within Nairobi County. The pharmacies provide a variety of pharmaceutical products and healthcare supplies to customers across the region, contributing to accessible healthcare services for the community.
+## problem statement
+
+Better Health Pharmacy is a chain of pharmacies operating in Nairobi County that provides pharmaceutical products and healthcare supplies to the community.
+
+At the end of Q4 2025, the management requires a clear sales report to evaluate the pharmacy’s performance. However, the sales data has not been properly organized or analyzed, making it difficult to identify sales trends and product performance.
+
+The objective of this project is to analyze the pharmacy’s Q4 2025 sales data and generate meaningful insights about sales performance during the quarter.
+
+The analysis will help stakeholders understand sales trends and support better decision-making in inventory management and sales planning.
+
+
+---
+## dataset
+## Dataset Description
+
+The dataset used in this project was synthetically generated to mimic real-world pharmacy sales transactions. The data was created for analytical purposes and does not contain real customer or business information.
+
+It contains sales transaction records from Better Health Pharmacy for Q4 2025. Each row in the dataset represents a single sales transaction made at one of the pharmacy branches. 
+The original dataset contains 6697 rows and 12 columns
+## Features in the Dataset
+
+| Feature | Description |
+|---|---|
+| Transaction_ID | A unique identifier assigned to each sales transaction. |
+| Date | The date when the transaction was made. |
+| Day_of_Week | The day on which the transaction occurred (e.g., Monday, Tuesday). |
+| Branch_ID | A unique identifier for each pharmacy branch. |
+| Branch_Location | The physical location of the pharmacy branch where the sale occurred. |
+| Product_ID | A unique identifier assigned to each product or drug. |
+| Drug_Name | The name of the pharmaceutical product sold. |
+| Category | The classification of the product, such as antibiotics, painkillers, or vitamins. |
+| Quantity | The number of units purchased in the transaction. |
+| Unit_Price_KES | The price of a single unit of the product in Kenyan Shillings (KES). |
+| Total_Sale_KES | The total sales amount generated from the transaction in Kenyan Shillings (KES). |
+| Payment_Method| The method used by the customer to make payment, such as cash, card, or mobile money. |
 
 ---
 
-## Problem Statement
+## tools used
+1. Python - pandas
+2. Looker - visualizations
 
-At the end of the fourth quarter (Q4) of 2025, the owners of Good Health Pharmacy require a clear and structured sales report to evaluate the pharmacy’s sales performance during the quarter. However, the available sales data has not yet been organized or analyzed in a way that highlights key insights such as total sales, sales trends over time, and performance across different products or customers. As a result, stakeholders lack a comprehensive view of the pharmacy’s Q4 sales performance, making it difficult to accurately assess business outcomes and identify areas for improvement.
+--- 
+## skills demonstated
+1. data cleaning
+2. 
 
----
-
-## Objective
-
-To analyze the pharmacy’s Q4 2025 sales data and generate insights that summarize sales performance and trends during the quarter.
-
----
-
-## Significance
-
-This analysis will provide stakeholders with a clear understanding of the pharmacy’s sales performance in Q4, including sales trends, peak sales periods, and the distribution of sales across products or customer segments. The insights generated will support better decision-making in areas such as sales strategy, inventory management, and revenue planning for the next quarter.
-
+## project overflow
+1. data cleaning
+2. 
 ---
 
 # Data Cleaning Process (Using Pandas)
@@ -30,8 +60,8 @@ This analysis will provide stakeholders with a clear understanding of the pharma
 
 The dataset was first inspected to understand its structure and quality.
 
-- **Total rows:** 6,698
-- **Total columns:** 12
+- Total rows:6,698
+- Total columns: 12
 
 This initial step helped identify potential issues such as duplicate records, missing values, incorrect data types, and inconsistent categorical entries.
 
@@ -45,7 +75,7 @@ Duplicate rows were checked using the Pandas duplicate detection function.
 df.duplicated().sum()
 ```
 
-- **Number of duplicate rows found:** 152
+- Number of duplicate rows found:152
 
 These duplicate records were removed to ensure each observation in the dataset was unique.
 
@@ -157,3 +187,129 @@ After completing the cleaning process:
 - Text inconsistencies were standardized.
 
 These steps improved the **accuracy, consistency, and reliability** of the dataset, making it suitable for further analysis and visualization
+
+## analysis using sql
+The following SQL queries were used to analyze the sales performance of Better Health Pharmacy for Q4 2025. These queries focus on key business metrics such as total sales, product performance, branch performance, and customer behavior.
+
+---
+
+### 1. Total Sales Revenue
+This query calculates the overall revenue generated during the period.
+
+```sql
+SELECT SUM(Total_Sale_KES)
+FROM pharma;
+```
+
+
+
+
+### 2. Total Quantity Sold
+
+This query shows the total number of product units sold.
+
+```sql
+SELECT SUM(Quantity)
+FROM pharma;
+```
+
+---
+
+### 3. Total Number of Transactions
+
+This query counts all unique sales transactions.
+
+```sql
+SELECT COUNT(DISTINCT Transaction_ID)
+FROM pharma;
+```
+
+---
+
+### 4. Sales Trend Over Time
+
+This query analyzes monthly sales performance.
+
+```sql
+SELECT MONTHNAME(Date) AS month_name,
+SUM(Total_Sale_KES)
+FROM pharma
+GROUP BY month_name
+ORDER BY month_name DESC;
+```
+
+---
+
+### 5. Sales by Day of the Week
+
+This query identifies which days generate the highest sales and transaction volume.
+
+```sql
+SELECT Day_of_Week,
+SUM(Total_Sale_KES) AS total_sales,
+COUNT(DISTINCT Transaction_ID) AS transaction_count
+FROM pharma
+GROUP BY Day_of_Week;
+```
+
+---
+
+### 6. Branch Performance Analysis
+
+This query compares sales performance across different branch locations.
+
+```sql
+SELECT Branch_Location AS branch,
+SUM(Total_Sale_KES) AS total_sales,
+COUNT(DISTINCT Transaction_ID) AS transaction_count
+FROM pharma
+GROUP BY branch;
+```
+
+---
+
+### 7. Product Performance Analysis
+
+This query identifies top-performing products based on revenue and quantity sold.
+
+```sql
+SELECT Drug_Name,
+SUM(Total_Sale_KES) AS total_sales,
+SUM(Quantity) AS total_quantity
+FROM pharma
+GROUP BY Drug_Name
+ORDER BY total_sales DESC;
+```
+
+---
+
+### 8. Category Performance Analysis
+
+This query shows which product categories contribute most to sales.
+
+```sql
+SELECT Category,
+SUM(Total_Sale_KES) AS total_sales
+FROM pharma
+GROUP BY Category
+ORDER BY total_sales DESC;
+```
+
+---
+
+### 9. Payment Method Analysis
+
+This query shows customer payment preferences.
+
+```sql
+SELECT Payment_Method,
+SUM(Total_Sale_KES) AS total_sales
+FROM pharma
+GROUP BY Payment_Method;
+```
+
+---
+
+
+
+
