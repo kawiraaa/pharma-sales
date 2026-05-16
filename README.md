@@ -309,7 +309,27 @@ GROUP BY Payment_Method;
 ```
 
 ---
+## Interactive Performance Dashboard
+To see these trends dynamically, I built an interactive data dashboard in Looker Studio. This allows stakeholders to filter the data by branch location and track daily cash flow patterns instantly.
+**[Click Here to View the Live Interactive Dashboard](https://datastudio.google.com/reporting/a618b763-e295-4551-9522-9f3943a51b36)**
 
+---
+## business recommendations
+
+### **2. Prioritize Diabetes Stock**
+-  Never let Insulin or diabetes medicine run out. It brings in over half of your total money, and chronic patients need reliable refills.
+
+### **3. Bulk-Buy Fast Movers**
+- Buy **Azithromycin** in larger bulks from suppliers. It is the most popular physical item, so lowering its cost instantly boosts profit margins.
+
+### **4. Optimize Staffing & Stock Delivery**
+- Put extra staff on **Wednesdays** to handle the heavy customer crowds and ensure high-value stock is fully replenished before the high-revenue **Friday** rush.
+
+### **5. Grow the Embakasi Branch**
+- Launch a small customer loyalty program or local promotion in Embakasi to capture more market share and help it close the minor revenue gap with the CBD branch.
+
+### **6. Encourage Impulse Buying**
+- Place inexpensive, high-margin items (like vitamins, painkillers, or band-aids) right at the counter to encourage quick add-on purchases from the  walk-in customers.
 
 
 
