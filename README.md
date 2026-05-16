@@ -222,7 +222,7 @@ SELECT COUNT(DISTINCT Transaction_ID)
 FROM pharma;
 ```
 ### results
-![](count_transactions.png)
+![](count_transcations.png)
 
 ---
 ## 2. Sales Trends(monthly and weekly)
