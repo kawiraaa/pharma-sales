@@ -357,6 +357,7 @@ GROUP BY Payment_Method;
 ---
 ## Interactive Performance Dashboard
 To see these trends dynamically, I built an interactive data dashboard in Looker Studio. This allows stakeholders to filter the data by branch location and track daily cash flow patterns instantly.
+
 **[Click Here to View the Live Interactive Dashboard](https://datastudio.google.com/reporting/a618b763-e295-4551-9522-9f3943a51b36)**
 
 ---
