@@ -193,42 +193,42 @@ The following SQL queries were used to analyze the sales performance of Better H
 
 ---
 
-### 1. Total Sales Revenue
-This query calculates the overall revenue generated during the period.
+## 1. Overall Performance (Revenue, Quantity, Transactions)
+**insight**:The pharmacy maintained strong health throughout Q4 with over 1.1M KES in revenue,a high transaction count (6,440),  and relative to quantity (13,030) purchase.
+###  a) total sales 
 
 ```sql
 SELECT SUM(Total_Sale_KES)
 FROM pharma;
 ```
 
+### results
+![](total_sales.png)
 
 
-
-### 2. Total Quantity Sold
-
-This query shows the total number of product units sold.
+### b).Total Quantity Sold
 
 ```sql
 SELECT SUM(Quantity)
 FROM pharma;
 ```
+### results
+![](sum_quantity.png)
 
----
-
-### 3. Total Number of Transactions
-
-This query counts all unique sales transactions.
+### c). Total Number of Transactions
 
 ```sql
 SELECT COUNT(DISTINCT Transaction_ID)
 FROM pharma;
 ```
+### results
+![](count_transactions.png)
 
 ---
+## 2. Sales Trends(monthly and weekly)
+Insight: Revenue is incredibly stable across October, November, and December, showing no major seasonal dips. Fridays are your "Money Days" (highest revenue), while Wednesdays are your "Traffic Days" (most transactions).
 
-### 4. Sales Trend Over Time
-
-This query analyzes monthly sales performance.
+### a). Sales Trend Over Time
 
 ```sql
 SELECT MONTHNAME(Date) AS month_name,
@@ -237,12 +237,11 @@ FROM pharma
 GROUP BY month_name
 ORDER BY month_name DESC;
 ```
+### results
+![](month.png)
 
----
 
-### 5. Sales by Day of the Week
-
-This query identifies which days generate the highest sales and transaction volume.
+### b). Sales by Day of the Week
 
 ```sql
 SELECT Day_of_Week,
@@ -251,12 +250,13 @@ COUNT(DISTINCT Transaction_ID) AS transaction_count
 FROM pharma
 GROUP BY Day_of_Week;
 ```
+### results
+![](day_of_week.png)
 
 ---
 
-### 6. Branch Performance Analysis
-
-This query compares sales performance across different branch locations.
+## 3. Branch Performance Analysis
+Insight: Nairobi CBD is the primary revenue driver (631,413 ksh), though Embakasi maintains a very healthy transaction volume. This indicates a consistent customer base in both locations, with higher-value baskets likely occurring in the CBD.
 
 ```sql
 SELECT Branch_Location AS branch,
@@ -265,12 +265,14 @@ COUNT(DISTINCT Transaction_ID) AS transaction_count
 FROM pharma
 GROUP BY branch;
 ```
+### results
+![](branches.png)
 
 ---
+## 3. Product & Category Performance
+Insight: Management of chronic conditions is the backbone of this pharmacy. Diabetes medications (specifically Insulin) account for more than half of the total revenue. While Antibiotics move the most physical units, their price point is lower than that of chronic care drugs.
 
-### 7. Product Performance Analysis
-
-This query identifies top-performing products based on revenue and quantity sold.
+### a). Product Performance 
 
 ```sql
 SELECT Drug_Name,
@@ -280,12 +282,10 @@ FROM pharma
 GROUP BY Drug_Name
 ORDER BY total_sales DESC;
 ```
+### results
+![](drugs.png)
 
----
-
-### 8. Category Performance Analysis
-
-This query shows which product categories contribute most to sales.
+### b). Category Performance
 
 ```sql
 SELECT Category,
@@ -294,12 +294,13 @@ FROM pharma
 GROUP BY Category
 ORDER BY total_sales DESC;
 ```
+### results
+![](category.png)
 
 ---
 
-### 9. Payment Method Analysis
-
-This query shows customer payment preferences.
+## 4. Payment Method Analysis
+-Pesa handles roughly 65%(741,779 ksh ) of all revenue. Ensuring M-Pesa systems are always up is critical for operational continuity, as it is preferred nearly 3.5x more than cash.
 
 ```sql
 SELECT Payment_Method,
@@ -307,6 +308,8 @@ SUM(Total_Sale_KES) AS total_sales
 FROM pharma
 GROUP BY Payment_Method;
 ```
+### results
+![](payments.png)
 
 ---
 ## Interactive Performance Dashboard
