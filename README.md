@@ -1,6 +1,21 @@
-# pharma-sales
+# Better Health Pharmacy Sales Analysis
 
 ## executive summary
+
+This project analyzes Q4 2025 sales performance for Better Health Pharmacy using SQL, Python (Pandas), and Looker Studio.
+
+The analysis focused on sales trends, branch performance, product demand, and customer payment behavior. After cleaning the data, SQL was used to generate insights, and Looker Studio was used for visualization.
+
+Key findings show that the pharmacy generated over **1.1M KES** in revenue, with diabetes medication as the top revenue driver. Fridays recorded the highest sales, Wednesdays had the highest transaction volume, Nairobi CBD was the best-performing branch, and M-Pesa was the most used payment method.
+
+Recommendations include maintaining stock for high-demand products, optimizing staffing during peak days, improving lower-performing branches, and encouraging impulse purchases through better product placement.
+
+The insights support better decisions in inventory management, staffing, and overall sales strategy.
+### dashboard overview
+![](dashboard_1.png)
+![](dashboard_2.png)
+
+--- 
 
 ## problem statement
 
@@ -39,19 +54,37 @@ The original dataset contains 6697 rows and 12 columns
 | Payment_Method| The method used by the customer to make payment, such as cash, card, or mobile money. |
 
 ---
+## Tools Used
 
-## tools used
-1. Python - pandas
-2. Looker - visualizations
+| Tool | Purpose |
+|---|---|
+| Python (Pandas) | Data cleaning and preprocessing |
+| SQL | Sales analysis and business querying |
+| Looker Studio | Data visualization and dashboard creation |
 
 --- 
-## skills demonstated
-1. data cleaning
-2. 
+## Skills Demonstrated
 
-## project overflow
-1. data cleaning
-2. 
+- Data Cleaning and Preprocessing
+- Exploratory Data Analysis (EDA)
+- SQL Querying
+- Business Intelligence Reporting
+- Data Visualization
+- Dashboard Development
+- Business Insight Generation
+- Data Storytelling
+
+---
+
+## Project Workflow
+
+1. Data Collection
+2. Data Cleaning and Preprocessing
+3. Exploratory Data Analysis
+4. SQL-Based Business Analysis
+5. Dashboard Development in Looker Studio
+6. Insight Generation
+7. Business Recommendations
 ---
 
 # Data Cleaning Process (Using Pandas)
@@ -194,7 +227,7 @@ The following SQL queries were used to analyze the sales performance of Better H
 ---
 
 ## 1. Overall Performance (Revenue, Quantity, Transactions)
-**insight**:The pharmacy maintained strong health throughout Q4 with over 1.1M KES in revenue,a high transaction count (6,440),  and relative to quantity (13,030) purchase.
+**insight**:The pharmacy maintained strong health throughout Q4 with over 1.1M KES in revenue, high transaction volume (6,440 transactions), and strong product movement (13,030 units sold)
 ###  a) total sales 
 
 ```sql
@@ -226,7 +259,7 @@ FROM pharma;
 
 ---
 ## 2. Sales Trends(monthly and weekly)
-Insight: Revenue is incredibly stable across October, November, and December, showing no major seasonal dips. Fridays are your "Money Days" (highest revenue), while Wednesdays are your "Traffic Days" (most transactions).
+Insight: Revenue is incredibly stable across October, November, and December, showing no major seasonal dips. Fridays generated the highest revenue, while Wednesdays recorded the highest customer traffic based on transaction volume.
 
 ### a). Sales Trend Over Time
 
@@ -269,8 +302,8 @@ GROUP BY branch;
 ![](branches.png)
 
 ---
-## 3. Product & Category Performance
-Insight: Management of chronic conditions is the backbone of this pharmacy. Diabetes medications (specifically Insulin) account for more than half of the total revenue. While Antibiotics move the most physical units, their price point is lower than that of chronic care drugs.
+## 4. Product & Category Performance
+Insight: Chronic care medication, particularly diabetes treatment products, contributed the largest share of total revenue.
 
 ### a). Product Performance 
 
@@ -299,9 +332,8 @@ ORDER BY total_sales DESC;
 
 ---
 
-## 4. Payment Method Analysis
--Pesa handles roughly 65%(741,779 ksh ) of all revenue. Ensuring M-Pesa systems are always up is critical for operational continuity, as it is preferred nearly 3.5x more than cash.
-
+## 5. Payment Method Analysis
+- M-Pesa accounted for approximately 65% of total sales revenue, making it the dominant payment method among customers.
 ```sql
 SELECT Payment_Method,
 SUM(Total_Sale_KES) AS total_sales
@@ -312,6 +344,17 @@ GROUP BY Payment_Method;
 ![](payments.png)
 
 ---
+## Key Insights
+
+- Total Q4 revenue exceeded 1.1M KES.
+- Diabetes medication generated the highest revenue among all product categories.
+- Fridays recorded the highest sales revenue.
+- Wednesdays had the highest transaction volume.
+- Nairobi CBD branch was the top-performing branch.
+- M-Pesa was the most frequently used payment method.
+- Antibiotics recorded the highest quantity sold.
+
+---
 ## Interactive Performance Dashboard
 To see these trends dynamically, I built an interactive data dashboard in Looker Studio. This allows stakeholders to filter the data by branch location and track daily cash flow patterns instantly.
 **[Click Here to View the Live Interactive Dashboard](https://datastudio.google.com/reporting/a618b763-e295-4551-9522-9f3943a51b36)**
@@ -320,7 +363,7 @@ To see these trends dynamically, I built an interactive data dashboard in Looker
 ## business recommendations
 
 ### **2. Prioritize Diabetes Stock**
--  Never let Insulin or diabetes medicine run out. It brings in over half of your total money, and chronic patients need reliable refills.
+- Maintain consistent stock availability for insulin and other diabetes medications, as these products contribute a significant portion of total revenue.
 
 ### **3. Bulk-Buy Fast Movers**
 - Buy **Azithromycin** in larger bulks from suppliers. It is the most popular physical item, so lowering its cost instantly boosts profit margins.
