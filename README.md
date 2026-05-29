@@ -2,8 +2,6 @@
 
 ## executive summary
 
-## Executive Summary
-
 This project analyzes Q4 2025 sales performance for Better Health Pharmacy using SQL, Python (Pandas), and Looker Studio to identify trends in revenue, branch performance, product demand, and customer payment behavior.
 
 The analysis revealed that the pharmacy generated over **1.1 million KES** in revenue during the quarter. Diabetes medication emerged as the highest revenue-generating product category, Nairobi CBD was the top-performing branch, Fridays recorded the highest sales, and M-Pesa was the most preferred payment method among customers.
