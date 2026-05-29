@@ -216,7 +216,7 @@ After completing the cleaning process:
 - Data types were corrected.
 - Text inconsistencies were standardized.
 
-These steps improved the **accuracy, consistency, and reliability** of the dataset, making it suitable for further analysis and visualization
+  These steps improved the **accuracy, consistency, and reliability** of the dataset, making it suitable for further analysis and visualization
 ---
 
 ## analysis using SQL
