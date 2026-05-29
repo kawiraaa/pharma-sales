@@ -2,15 +2,16 @@
 
 ## executive summary
 
-This project analyzes Q4 2025 sales performance for Better Health Pharmacy using SQL, Python (Pandas), and Looker Studio.
+## Executive Summary
 
-The analysis focused on sales trends, branch performance, product demand, and customer payment behavior. After cleaning the data, SQL was used to generate insights, and Looker Studio was used for visualization.
+This project analyzes Q4 2025 sales performance for Better Health Pharmacy using SQL, Python (Pandas), and Looker Studio to identify trends in revenue, branch performance, product demand, and customer payment behavior.
 
-Key findings show that the pharmacy generated over **1.1M KES** in revenue, with diabetes medication as the top revenue driver. Fridays recorded the highest sales, Wednesdays had the highest transaction volume, Nairobi CBD was the best-performing branch, and M-Pesa was the most used payment method.
+The analysis revealed that the pharmacy generated over **1.1 million KES** in revenue during the quarter. Diabetes medication emerged as the highest revenue-generating product category, Nairobi CBD was the top-performing branch, Fridays recorded the highest sales, and M-Pesa was the most preferred payment method among customers.
 
-Recommendations include maintaining stock for high-demand products, optimizing staffing during peak days, improving lower-performing branches, and encouraging impulse purchases through better product placement.
+Based on these findings, the project recommends maintaining adequate stock for high-demand products, optimizing staffing during peak periods, improving performance in lower-performing branches, and using strategic product placement to encourage additional purchases.
 
-The insights support better decisions in inventory management, staffing, and overall sales strategy.
+These insights can support better decision-making in inventory management, staffing, and overall sales strategy.
+ 
 ### dashboard overview
 ![](dashboard_1.png)
 ![](dashboard_2.png)
@@ -77,19 +78,17 @@ The original dataset contains 6697 rows and 12 columns
 ---
 
 ## Project Workflow
-
-1. Data Collection
-2. Data Cleaning and Preprocessing
-3. Exploratory Data Analysis
-4. SQL-Based Business Analysis
-5. Dashboard Development in Looker Studio
-6. Insight Generation
-7. Business Recommendations
+-  Data Cleaning and Preprocessing
+-  Exploratory Data Analysis
+-  SQL-Based Business Analysis
+-  Dashboard Development in Looker Studio
+-  Insight Generation
+-  Business Recommendations
 ---
 
-# Data Cleaning Process (Using Pandas)
+## Data Cleaning Process (Using Pandas)
 
-## 1. Initial Dataset Inspection
+### 1. Initial Dataset Inspection
 
 The dataset was first inspected to understand its structure and quality.
 
@@ -98,9 +97,9 @@ The dataset was first inspected to understand its structure and quality.
 
 This initial step helped identify potential issues such as duplicate records, missing values, incorrect data types, and inconsistent categorical entries.
 
----
+----
 
-# 2. Duplicate Records
+### 2. Duplicate Records
 
 Duplicate rows were checked using the Pandas duplicate detection function.
 
@@ -110,17 +109,16 @@ df.duplicated().sum()
 
 - Number of duplicate rows found:152
 
-These duplicate records were removed to ensure each observation in the dataset was unique.
+These duplicate records were removed to reduce the risk of biased analysis caused by repeated transactions.
 
 ```python
 df = df.drop_duplicates()
 ```
 
-Removing duplicates reduced the risk of biased analysis caused by repeated transactions.
 
----
+----
 
-# 3. Missing Values Analysis
+### 3. Missing Values Analysis
 
 A check for missing values revealed that the dataset contained **1,002 missing values** distributed across multiple columns.
 
@@ -130,9 +128,9 @@ df.isnull().sum()
 
 Instead of applying a single global method, **each column was handled individually** based on its data type and the nature of the data.
 
----
+----
 
-# 4. Data Type Corrections
+### 4. Data Type Corrections
 
 Some columns had incorrect data types. For example:
 
@@ -144,9 +142,9 @@ df['date'] = pd.to_datetime(df['date'])
 
 Correct data types are important for accurate analysis and enable time-based operations such as grouping or filtering by date.
 
----
+----
 
-# 5. Cleaning Text Columns
+### 5. Cleaning Text Columns
 
 Categorical text columns (e.g., **day of the week**, **payment method**) were checked for inconsistencies.
 
@@ -170,21 +168,20 @@ This step:
 - Removed **extra spaces**
 - Improved consistency across categorical values
 
----
+----
 
-# 6. Handling Missing Values in Categorical Columns
+### 6. Handling Missing Values in Categorical Columns
 
-For categorical columns, missing values were replaced with the **most frequent value (mode)** in the column.
+For categorical columns, missing values were replaced with the **most frequent value (mode)** in the column. This method preserves the data distribution without introducing unrealistic values.
 
 ```python
 df['column_name'].fillna(df['column_name'].mode()[0], inplace=True)
 ```
 
-This method preserves the distribution of the data without introducing unrealistic values.
 
----
+----
 
-# 7. Handling Missing Values in Unit Price
+### 7. Handling Missing Values in Unit Price
 
 For the **Unit Price** column, missing values were filled by comparing prices of the same drugs.
 
@@ -192,9 +189,9 @@ The prices of similar drugs were analyzed and used to estimate reasonable values
 
 This approach ensured the filled values remained **consistent with existing drug pricing patterns** in the dataset.
 
----
+----
 
-# 8. Handling Missing Values in Quantity
+### 8. Handling Missing Values in Quantity
 
 For the **Quantity** column, missing values were replaced using the **mean quantity for the respective drug**.
 
@@ -208,9 +205,9 @@ df['quantity'] = df.groupby('drug')['quantity'].transform(lambda x: x.fillna(x.m
 
 Using the mean within each drug group helps maintain realistic transaction patterns.
 
----
+----
 
-# 9. Final Outcome
+### 9. Final Outcome
 
 After completing the cleaning process:
 
@@ -220,15 +217,16 @@ After completing the cleaning process:
 - Text inconsistencies were standardized.
 
 These steps improved the **accuracy, consistency, and reliability** of the dataset, making it suitable for further analysis and visualization
-
-## analysis using sql
-The following SQL queries were used to analyze the sales performance of Better Health Pharmacy for Q4 2025. These queries focus on key business metrics such as total sales, product performance, branch performance, and customer behavior.
-
 ---
 
-## 1. Overall Performance (Revenue, Quantity, Transactions)
+## analysis using SQL
+The following SQL queries were used to analyze the sales performance of Better Health Pharmacy for Q4 2025. These queries focus on key business metrics such as total sales, product performance, branch performance, and customer behavior.
+
+----
+
+### 1. Overall Performance (Revenue, Quantity, Transactions)
 **insight**:The pharmacy maintained strong health throughout Q4 with over 1.1M KES in revenue, high transaction volume (6,440 transactions), and strong product movement (13,030 units sold)
-###  a) total sales 
+####  a) total sales 
 
 ```sql
 SELECT SUM(Total_Sale_KES)
@@ -239,7 +237,7 @@ FROM pharma;
 ![](total_sales.png)
 
 
-### b).Total Quantity Sold
+#### b).Total Quantity Sold
 
 ```sql
 SELECT SUM(Quantity)
@@ -248,7 +246,7 @@ FROM pharma;
 ### results
 ![](sum_quantity.png)
 
-### c). Total Number of Transactions
+#### c). Total Number of Transactions
 
 ```sql
 SELECT COUNT(DISTINCT Transaction_ID)
@@ -257,11 +255,11 @@ FROM pharma;
 ### results
 ![](count_transcations.png)
 
----
-## 2. Sales Trends(monthly and weekly)
+----
+### 2. Sales Trends(monthly and weekly)
 Insight: Revenue is incredibly stable across October, November, and December, showing no major seasonal dips. Fridays generated the highest revenue, while Wednesdays recorded the highest customer traffic based on transaction volume.
 
-### a). Sales Trend Over Time
+#### a). Sales Trend Over Time
 
 ```sql
 SELECT MONTHNAME(Date) AS month_name,
@@ -286,9 +284,9 @@ GROUP BY Day_of_Week;
 ### results
 ![](day_of_week.png)
 
----
+----
 
-## 3. Branch Performance Analysis
+### 3. Branch Performance Analysis
 Insight: Nairobi CBD is the primary revenue driver (631,413 ksh), though Embakasi maintains a very healthy transaction volume. This indicates a consistent customer base in both locations, with higher-value baskets likely occurring in the CBD.
 
 ```sql
@@ -301,9 +299,9 @@ GROUP BY branch;
 ### results
 ![](branches.png)
 
----
-## 4. Product & Category Performance
-Insight: Chronic care medication, particularly diabetes treatment products, contributed the largest share of total revenue.
+----
+### 4. Product & Category Performance
+Insight: Chronic care medications, particularly diabetes treatment products, accounted for the largest share of total revenue.
 
 ### a). Product Performance 
 
@@ -330,10 +328,10 @@ ORDER BY total_sales DESC;
 ### results
 ![](category.png)
 
----
+----
 
-## 5. Payment Method Analysis
-- M-Pesa accounted for approximately 65% of total sales revenue, making it the dominant payment method among customers.
+### 5. Payment Method Analysis
+- M-Pesa accounted for KSh 741,779 total sales revenue, making it the dominant payment method among customers.
 ```sql
 SELECT Payment_Method,
 SUM(Total_Sale_KES) AS total_sales
@@ -343,14 +341,14 @@ GROUP BY Payment_Method;
 ### results
 ![](payments.png)
 
----
+----
 ## Key Insights
 
 - Total Q4 revenue exceeded 1.1M KES.
 - Diabetes medication generated the highest revenue among all product categories.
 - Fridays recorded the highest sales revenue.
 - Wednesdays had the highest transaction volume.
-- Nairobi CBD branch was the top-performing branch.
+- The Nairobi CBD branch was the top-performing branch.
 - M-Pesa was the most frequently used payment method.
 - Antibiotics recorded the highest quantity sold.
 
@@ -367,7 +365,7 @@ To see these trends dynamically, I built an interactive data dashboard in Looker
 - Maintain consistent stock availability for insulin and other diabetes medications, as these products contribute a significant portion of total revenue.
 
 ### **3. Bulk-Buy Fast Movers**
-- Buy **Azithromycin** in larger bulks from suppliers. It is the most popular physical item, so lowering its cost instantly boosts profit margins.
+- Buy **Azithromycin** in larger bulk from suppliers. It is the most popular physical item, so lowering its cost instantly boosts profit margins.
 
 ### **4. Optimize Staffing & Stock Delivery**
 - Put extra staff on **Wednesdays** to handle the heavy customer crowds and ensure high-value stock is fully replenished before the high-revenue **Friday** rush.
