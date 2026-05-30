@@ -65,7 +65,6 @@ The original dataset contains 6697 rows and 12 columns
 ## Skills Demonstrated
 
 - Data Cleaning and Preprocessing
-- Exploratory Data Analysis (EDA)
 - SQL Querying
 - Business Intelligence Reporting
 - Data Visualization
@@ -77,7 +76,6 @@ The original dataset contains 6697 rows and 12 columns
 
 ## Project Workflow
 -  Data Cleaning and Preprocessing
--  Exploratory Data Analysis
 -  SQL-Based Business Analysis
 -  Dashboard Development in Looker Studio
 -  Insight Generation
@@ -213,6 +211,7 @@ After completing the cleaning process:
 - Missing values were handled appropriately depending on the column.
 - Data types were corrected.
 - Text inconsistencies were standardized.
+
 
   These steps improved the **accuracy, consistency, and reliability** of the dataset, making it suitable for further analysis and visualization
 ---
